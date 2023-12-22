@@ -24,4 +24,20 @@ app.get("/instructors", (req , res)=>{
     })
   })
 
+
+  app.post('/add', (req, res) => {
+    const q = `INSERT INTO cmpsci.instructor (emplid ,email, address, firstname, lastname, phone, teaching_interest, research_interest, date_of_hire, courses_taught, offfice_location ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const { emplid ,email, address, firstname, lastname, phone, teaching_interest, research_interest, date_of_hire, courses_taught, offfice_location } = req.body;
+  
+    db.query(q, [emplid ,email, address, firstname, lastname, phone, teaching_interest, research_interest, date_of_hire, courses_taught, offfice_location], (err, result)=> {
+      if (err){
+        console.error(err);
+        res.status(500).send("Failed to add instructor");
+      }else{
+        res.status(200).send("instructor added successfully");
+        console.log("added")
+      }
+    })
+  })
+
   
